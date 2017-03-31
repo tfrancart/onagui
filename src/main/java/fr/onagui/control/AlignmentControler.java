@@ -39,6 +39,8 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 
 	private MyTreeModel<ONTORES1> treeModel1 = null;
 	private MyTreeModel<ONTORES2> treeModel2 = null;
+	
+	protected Integer totalAlignement;
 
 	private Set<AbstractAlignmentMethod<ONTORES1, ONTORES2>> methods = null;
 
@@ -513,6 +515,7 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 		}
 
 		int total = horsAlignement + aligne + topAlign + botAlign;
+		setTotalAlignement(totalAlignment);
 		buf.append("\n"+Messages.getString("AlignmentControler.10")+total); //$NON-NLS-1$
 		buf.append("\n"+Messages.getString("AlignmentControler.11")+totalAlignment+" ("+(totalAlignment*100/total)+"%)"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		buf.append("\n"+Messages.getString("AlignmentControler.14")); //$NON-NLS-1$
@@ -566,6 +569,14 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 			}
 		}
 		return false;
+	}
+
+	public Integer getTotalAlignement() {
+		return totalAlignement;
+	}
+
+	public void setTotalAlignement(Integer totalAlignement) {
+		this.totalAlignement = totalAlignement;
 	}
 
 	/** Assigne le fait que tous les descendants du noeud courants doivent être marqué comme "non trouvé"

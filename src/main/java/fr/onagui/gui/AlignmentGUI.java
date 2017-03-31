@@ -40,6 +40,7 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -140,7 +141,9 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 	private Collection<JMenuItem> syntacticAlignItem = null;
 	private JMenuItem searchIn1;
 	private JMenuItem searchIn2;
-
+	private JDialog endAlignment;
+	private JLabel msgEndAlignment =null;
+	private JButton btnOkEndAlign =null;
 	/* formulaire de rentrée des alignements */
 	private JTextField scoreFied = null;
 	private JComboBox<MAPPING_TYPE> typeField = null;
@@ -1611,6 +1614,21 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 
 							progressBar.setVisible(false);
 							// FIXME le retour n'est plus utilisé maintenant
+							
+							//Affichage dialog fin d'alignement
+							msgEndAlignment=new JLabel(Messages.getString("EndAlign")+alignmentControler.getTotalAlignement());
+							btnOkEndAlign=new JButton(Messages.getString("OkEndAlign"));
+							endAlignment.add(msgEndAlignment,BorderLayout.CENTER);
+							endAlignment.add(btnOkEndAlign,BorderLayout.CENTER);
+							endAlignment.setVisible(true);
+							btnOkEndAlign.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									endAlignment.setVisible(false);
+									
+								}
+							});
 							return null;
 						}
 					});
@@ -1624,6 +1642,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 			} catch (InterruptedException | ExecutionException e1) {
 				e1.printStackTrace();
 			}
+			
 			refreshGUIFromModel();
 		}
 	}
