@@ -141,9 +141,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 	private Collection<JMenuItem> syntacticAlignItem = null;
 	private JMenuItem searchIn1;
 	private JMenuItem searchIn2;
-	private JDialog endAlignment;
-	private JLabel msgEndAlignment =null;
-	private JButton btnOkEndAlign =null;
+	private Integer total;
 	/* formulaire de rentrée des alignements */
 	private JTextField scoreFied = null;
 	private JComboBox<MAPPING_TYPE> typeField = null;
@@ -1063,6 +1061,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 					toShow2.append(":\n"); //$NON-NLS-1$
 					toShow2.append(stat2);
 				}
+				
 				StringBuilder toShow = new StringBuilder();
 				if(toShow1.length() != 0 && toShow2.length() != 0) {
 					toShow.append(toShow1);
@@ -1537,6 +1536,8 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		refreshGUIFromModel();
 	}
+	
+	
 
 	public class AlignmentAlgorithmMenuListener<ONTORES1, ONTORES2> implements ActionListener {
 
@@ -1545,7 +1546,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 		public AlignmentAlgorithmMenuListener(AbstractAlignmentMethod<ONTORES1, ONTORES2> method) {
 			this.method = method;
 		}
-
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// FIXME plus d'ecraesement necessaire maintenant..
@@ -1580,7 +1581,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 				labelMethod.setLangsFrom1(labelParameterDialog.getSelectedLangFor1());
 				labelMethod.setLangsFrom2(labelParameterDialog.getSelectedLangFor2());
 			}
-
+			
 			// Map<OWLEntity, Set<Mapping<OWLEntity, SKOSConcept>>> return type
 			FutureTask<Alignment<ONTORES1, ONTORES2>> task = new FutureTask<Alignment<ONTORES1, ONTORES2>>(
 					new Callable<Alignment<ONTORES1, ONTORES2>>() {
@@ -1610,30 +1611,19 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 								}
 
 								alignmentControler.computeAndAddMapping(method, listener, selected1, selected2);
+								
 							}
-
+							
 							progressBar.setVisible(false);
+
 							// FIXME le retour n'est plus utilisé maintenant
 							
-							//Affichage dialog fin d'alignement
-							msgEndAlignment=new JLabel(Messages.getString("EndAlign")+alignmentControler.getTotalAlignement());
-							btnOkEndAlign=new JButton(Messages.getString("OkEndAlign"));
-							endAlignment.add(msgEndAlignment,BorderLayout.CENTER);
-							endAlignment.add(btnOkEndAlign,BorderLayout.CENTER);
-							endAlignment.setVisible(true);
-							btnOkEndAlign.addActionListener(new ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									// TODO Auto-generated method stub
-									endAlignment.setVisible(false);
-									
-								}
-							});
 							return null;
 						}
 					});
 			ExecutorService executors = Executors.newCachedThreadPool();
 			executors.execute(task);
+		
 			if(!task.isDone()) {// Be careful of very quick task!
 				progressBar.setVisible(true);
 			}
@@ -1642,7 +1632,12 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 			} catch (InterruptedException | ExecutionException e1) {
 				e1.printStackTrace();
 			}
-			
+			//open a dialog with a number of alignment found
+			if(alignmentControler.getTotalAlignement()!=null){
+				JOptionPane.showMessageDialog(AlignmentGUI.this,Messages.getString("EndAlign")+alignmentControler.getTotalAlignement());
+			}else{
+				JOptionPane.showMessageDialog(AlignmentGUI.this,Messages.getString("EndAlign")+ 0);
+			}
 			refreshGUIFromModel();
 		}
 	}
@@ -1727,6 +1722,14 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 			AlignmentGUI.this.refreshGUIFromModel();			
 		}
 	}
+	
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 
 	class PopupListener extends MouseAdapter {
 		JPopupMenu popup;
@@ -1760,6 +1763,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new AlignmentGUI();
+				
 			}
 		});
 	}

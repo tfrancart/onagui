@@ -30,6 +30,8 @@ public class Alignment<ONTORES1, ONTORES2> {
 	private SortedMap<URI, NoMappingPossible<ONTORES1>> impossibleMapping1 = null;
 	private SortedMap<URI, NoMappingPossible<ONTORES2>> impossibleMapping2 = null;
 
+	protected Integer total;
+	protected Integer totalvalue=0;
 	/**
 	 * @param onto1
 	 * @param onto2
@@ -53,6 +55,22 @@ public class Alignment<ONTORES1, ONTORES2> {
 
 	public OntoContainer<ONTORES2> getOnto2() {
 		return onto2;
+	}
+	
+	/**
+	 * get the total number of alignment
+	 * @return
+	 */
+
+	public Integer getTotalAlignment() {
+		return total;
+	}
+	/**
+	 * set the total number of alignment
+	 * @param total
+	 */
+	public void setTotalAlignment(Integer total) {
+		this.total = total;
 	}
 
 	/** Return an unmodifiable view of the index for ontology 1.
@@ -204,6 +222,7 @@ public class Alignment<ONTORES1, ONTORES2> {
 		}
 
 		for(Mapping<ONTORES1, ONTORES2> newMappings : alignment.getMapping()) {
+			totalvalue++;
 			addMap(newMappings);
 		}
 		for(NoMappingPossible<ONTORES1> nomap : alignment.getImpossibleMapping1().values()) {
@@ -212,6 +231,9 @@ public class Alignment<ONTORES1, ONTORES2> {
 		for(NoMappingPossible<ONTORES2> nomap : alignment.getImpossibleMapping2().values()) {
 			addImpossibleMappingFrom2(nomap);
 		}
+		setTotalAlignment(totalvalue);
+		totalvalue=0;
+		System.out.println(getTotalAlignment());
 	}
 
 	/** Return the mapping between the specified concepts.
