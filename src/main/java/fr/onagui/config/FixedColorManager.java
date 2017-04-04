@@ -10,11 +10,11 @@ import org.w3c.dom.NodeList;
 public class FixedColorManager implements ScoreColorConfiguration {
 
 	/* Color, fixed */
-
-	public static final Color COLOR_1 = new Color(51,255,51); // Green
+	public static  Color COLOR = null; // Green
+	/*public static final Color COLOR_1 = new Color(51,255,51); // Green
 	public static final Color COLOR_2 = new Color(255,255,0); // Yellow
 	public static final Color COLOR_3 = new Color(255,153,0); // Orange
-	public static final Color COLOR_4 = new Color(255, 0, 0); // Red
+	public static final Color COLOR_4 = new Color(255, 0, 0); // Red*/
 
 	/* Threshold, can be modified by constructor */
 
@@ -61,14 +61,10 @@ public class FixedColorManager implements ScoreColorConfiguration {
 	 */
 	@Override
 	public Color getColorFromScore(double score) {
-		if(score >= threshold_1)
-			return COLOR_1;
-		else if (score >= threshold_2)
-			return COLOR_2;
-		else if (score >= threshold_3)
-			return COLOR_3;
-		else
-			return COLOR_4;
+		
+		float gradient=(float)(score);
+		COLOR=new Color(0,gradient,0);
+		return COLOR;
 	}
 
 	/* (non-Javadoc)
