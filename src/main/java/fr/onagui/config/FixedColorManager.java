@@ -62,8 +62,12 @@ public class FixedColorManager implements ScoreColorConfiguration {
 	@Override
 	public Color getColorFromScore(double score) {
 		
-		float gradient=(float)(score);
-		COLOR=new Color(0,gradient,0);
+		int gradient=(int)((score*255));
+		if(score<threshold_2){
+			COLOR=new Color(196,237,196);
+		}else{
+			COLOR=new Color(100,gradient,100);
+		}	
 		return COLOR;
 	}
 
