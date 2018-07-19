@@ -23,9 +23,9 @@ public class AlignmentFactory<ONTORES1, ONTORES2> {
 	/** The event name used in property change listener */
 	public static final String PROGRESS_EVENT_NAME = "progressRatio";
 	
-	private AbstractAlignmentMethod<ONTORES1, ONTORES2> alignmentMethod = null;
+	private AlignmentMethod<ONTORES1, ONTORES2> alignmentMethod = null;
 	
-	public AlignmentFactory(AbstractAlignmentMethod<ONTORES1, ONTORES2> method) {
+	public AlignmentFactory(AlignmentMethod<ONTORES1, ONTORES2> method) {
 		propertyManagement = new PropertyChangeSupport(this);
 		alignmentMethod = method;
 	}

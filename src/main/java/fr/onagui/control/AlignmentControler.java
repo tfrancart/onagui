@@ -18,7 +18,7 @@ import java.util.SortedSet;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import fr.onagui.alignment.AbstractAlignmentMethod;
+import fr.onagui.alignment.AlignmentMethod;
 import fr.onagui.alignment.Alignment;
 import fr.onagui.alignment.AlignmentFactory;
 import fr.onagui.alignment.Mapping;
@@ -47,7 +47,7 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 	private MyTreeModel<ONTORES1> treeModel1 = null;
 	private MyTreeModel<ONTORES2> treeModel2 = null;
 
-	private Set<AbstractAlignmentMethod<ONTORES1, ONTORES2>> methods = null;
+	private Set<AlignmentMethod<ONTORES1, ONTORES2>> methods = null;
 
 	private class IOEventManagerJDialog implements IOAlignment.IOEventManager {
 
@@ -91,23 +91,23 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 		ioAlignmentRegistry.add(new CSVImpl());
 		ioAlignmentRegistry.add(new SkosImpl(ioEventManager));
 		
-		methods = new HashSet<AbstractAlignmentMethod<ONTORES1, ONTORES2>>();
-		Set<Class<? extends AbstractAlignmentMethod>> classes = new HashSet<Class<? extends AbstractAlignmentMethod>>();
+		methods = new HashSet<AlignmentMethod<ONTORES1, ONTORES2>>();
+		Set<Class<? extends AlignmentMethod>> classes = new HashSet<Class<? extends AlignmentMethod>>();
 
 		// Pas mal générique, maintenant il faudrait que je charge ça à la volée...
-		classes.add(LevenshteinAlignmentMethod.class.asSubclass(AbstractAlignmentMethod.class));
-		classes.add(ISubAlignmentMethod.class.asSubclass(AbstractAlignmentMethod.class));
-		classes.add(ExactAlignmentMethod.class.asSubclass(AbstractAlignmentMethod.class));
+		classes.add(LevenshteinAlignmentMethod.class.asSubclass(AlignmentMethod.class));
+		classes.add(ISubAlignmentMethod.class.asSubclass(AlignmentMethod.class));
+		classes.add(ExactAlignmentMethod.class.asSubclass(AlignmentMethod.class));
 
 		methods = buildInstancesFromClass(classes);
 	}
 
-	public Set<AbstractAlignmentMethod<ONTORES1, ONTORES2>> buildInstancesFromClass(Set<Class<? extends AbstractAlignmentMethod>> classes) {
-		Set<AbstractAlignmentMethod<ONTORES1, ONTORES2>> methods = new HashSet<AbstractAlignmentMethod<ONTORES1, ONTORES2>>();
-		for(Class<? extends AbstractAlignmentMethod> c : classes) {
+	public Set<AlignmentMethod<ONTORES1, ONTORES2>> buildInstancesFromClass(Set<Class<? extends AlignmentMethod>> classes) {
+		Set<AlignmentMethod<ONTORES1, ONTORES2>> methods = new HashSet<AlignmentMethod<ONTORES1, ONTORES2>>();
+		for(Class<? extends AlignmentMethod> c : classes) {
 			try {
 				// Appel du constructeur par défaut
-				AbstractAlignmentMethod inst = c.newInstance();
+				AlignmentMethod inst = c.newInstance();
 				methods.add(inst);
 			} catch (InstantiationException e) {
 				e.printStackTrace();
@@ -118,7 +118,7 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 		return methods;
 	}
 
-	public Set<AbstractAlignmentMethod<ONTORES1, ONTORES2>> getLoadedAlignmentMethods() {
+	public Set<AlignmentMethod<ONTORES1, ONTORES2>> getLoadedAlignmentMethods() {
 		return methods;
 	}
 
@@ -293,7 +293,7 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 		alignment.addMap(map);
 	}
 
-	public void computeAndAddMapping(AbstractAlignmentMethod<ONTORES1, ONTORES2> method, PropertyChangeListener listener) { 
+	public void computeAndAddMapping(AlignmentMethod<ONTORES1, ONTORES2> method, PropertyChangeListener listener) { 
 		AlignmentFactory<ONTORES1, ONTORES2> factory = new AlignmentFactory<ONTORES1, ONTORES2>(method);
 		factory.addPropertyChangeListener(listener);
 		Alignment<ONTORES1, ONTORES2> newAlignment = factory.computeMapping(container1, container2);
@@ -302,7 +302,7 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 
 
 	public void computeAndAddMapping(
-			AbstractAlignmentMethod<ONTORES1, ONTORES2> method,
+			AlignmentMethod<ONTORES1, ONTORES2> method,
 			PropertyChangeListener listener,
 			DefaultMutableTreeNode rootFrom1,
 			DefaultMutableTreeNode rootFrom2, 

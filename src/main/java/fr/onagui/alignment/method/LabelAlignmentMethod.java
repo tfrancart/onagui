@@ -10,7 +10,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.Vector;
 
-import fr.onagui.alignment.AbstractAlignmentMethod;
+import fr.onagui.alignment.AlignmentMethod;
 import fr.onagui.alignment.NLPTools;
 import fr.onagui.alignment.OntoContainer;
 
@@ -26,8 +26,7 @@ import fr.onagui.alignment.OntoContainer;
  * @param <ONTORES1>
  * @param <ONTORES2>
  */
-public abstract class LabelAlignmentMethod<ONTORES1, ONTORES2> extends
-AbstractAlignmentMethod<ONTORES1, ONTORES2> {
+public abstract class LabelAlignmentMethod<ONTORES1, ONTORES2> implements AlignmentMethod<ONTORES1, ONTORES2> {
 	
 	/** Faux tag pouvant être utilisé pour désigner les annotations sans tag de langues.
 	 * A NE PAS UTILISER AVEC DANS LES METHODES ONTO_CONTAINER.

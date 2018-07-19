@@ -75,7 +75,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import com.google.common.collect.Sets;
 
-import fr.onagui.alignment.AbstractAlignmentMethod;
+import fr.onagui.alignment.AlignmentMethod;
 import fr.onagui.alignment.Alignment;
 import fr.onagui.alignment.Mapping;
 import fr.onagui.alignment.Mapping.MAPPING_TYPE;
@@ -840,8 +840,8 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 		JMenu alignMenu = new JMenu(Messages.getString("AlignmentMenu")); //$NON-NLS-1$
 		menuBar.add(alignMenu);
 		syntacticAlignItem = new Vector<JMenuItem>();
-		Set<AbstractAlignmentMethod> methods = alignmentControler.getLoadedAlignmentMethods();
-		for(AbstractAlignmentMethod method : methods) {
+		Set<AlignmentMethod> methods = alignmentControler.getLoadedAlignmentMethods();
+		for(AlignmentMethod method : methods) {
 			JMenuItem aMenu = new JMenuItem(method.toString());
 			alignMenu.add(aMenu);
 			aMenu.addActionListener(new AlignmentAlgorithmMenuListener(method));
@@ -1557,9 +1557,9 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 
 	public class AlignmentAlgorithmMenuListener<ONTORES1, ONTORES2> implements ActionListener {
 
-		private AbstractAlignmentMethod<ONTORES1, ONTORES2> method = null;
+		private AlignmentMethod<ONTORES1, ONTORES2> method = null;
 
-		public AlignmentAlgorithmMenuListener(AbstractAlignmentMethod<ONTORES1, ONTORES2> method) {
+		public AlignmentAlgorithmMenuListener(AlignmentMethod<ONTORES1, ONTORES2> method) {
 			this.method = method;
 		}
 

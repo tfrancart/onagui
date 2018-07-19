@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 
-import fr.onagui.alignment.AbstractAlignmentMethod;
+import fr.onagui.alignment.AlignmentMethod;
 import fr.onagui.alignment.Mapping;
 import fr.onagui.alignment.OntoContainer;
 import fr.onagui.alignment.Mapping.MAPPING_TYPE;

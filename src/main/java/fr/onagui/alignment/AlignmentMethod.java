@@ -7,7 +7,7 @@ package fr.onagui.alignment;
 /**
  * @author Laurent Mazuel
  */
-public abstract class AbstractAlignmentMethod<ONTORES1, ONTORES2> {
+public interface AlignmentMethod<ONTORES1, ONTORES2> {
 	
 	public abstract boolean init() ;
 	
