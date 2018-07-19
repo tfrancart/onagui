@@ -106,7 +106,7 @@ public class ISubAlignmentMethod<ONTORES1, ONTORES2> extends LabelAlignmentMetho
 	}
 	
 	@Override
-	public String toString() {
+	public String getDisplayName() {
 		return "I-Sub distance"; 
 	}
 

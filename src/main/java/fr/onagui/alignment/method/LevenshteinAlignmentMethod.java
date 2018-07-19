@@ -99,8 +99,8 @@ public class LevenshteinAlignmentMethod<ONTORES1, ONTORES2> extends LabelAlignme
 	}
 	
 	@Override
-	public String toString() {
-		return "Distance de Levenshtein";
+	public String getDisplayName() {
+		return "Levenshtein distance";
 	}
 
 }

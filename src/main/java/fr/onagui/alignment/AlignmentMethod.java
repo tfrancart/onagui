@@ -15,6 +15,12 @@ public interface AlignmentMethod<ONTORES1, ONTORES2> {
 			OntoContainer<ONTORES1> model1,
 			ONTORES1 cpt1Inst,
 			OntoContainer<ONTORES2> model2,
-			ONTORES2 cpt2Inst);
+			ONTORES2 cpt2Inst
+	);
 	
+	/**
+	 * Returns the display name of the method, to be inserted in GUI menu
+	 * @return
+	 */
+	public String getDisplayName();
 }

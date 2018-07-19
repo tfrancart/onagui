@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashSet;
-
+import java.util.Iterator;
 import java.util.List;
 
 import java.util.Optional;
@@ -32,6 +32,7 @@ import fr.onagui.alignment.io.CSVImpl;
 import fr.onagui.alignment.io.EuzenatRDFImpl;
 import fr.onagui.alignment.io.IOAlignment;
 import fr.onagui.alignment.io.SkosImpl;
+import fr.onagui.alignment.method.AlignmentMethodRegistry;
 import fr.onagui.alignment.method.ExactAlignmentMethod;
 import fr.onagui.alignment.method.ISubAlignmentMethod;
 import fr.onagui.alignment.method.LevenshteinAlignmentMethod;
@@ -46,8 +47,6 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 
 	private MyTreeModel<ONTORES1> treeModel1 = null;
 	private MyTreeModel<ONTORES2> treeModel2 = null;
-
-	private Set<AlignmentMethod<ONTORES1, ONTORES2>> methods = null;
 
 	private class IOEventManagerJDialog implements IOAlignment.IOEventManager {
 
@@ -90,36 +89,6 @@ public class AlignmentControler<ONTORES1, ONTORES2> {
 		ioAlignmentRegistry.add(new EuzenatRDFImpl(ioEventManager));
 		ioAlignmentRegistry.add(new CSVImpl());
 		ioAlignmentRegistry.add(new SkosImpl(ioEventManager));
-		
-		methods = new HashSet<AlignmentMethod<ONTORES1, ONTORES2>>();
-		Set<Class<? extends AlignmentMethod>> classes = new HashSet<Class<? extends AlignmentMethod>>();
-
-		// Pas mal générique, maintenant il faudrait que je charge ça à la volée...
-		classes.add(LevenshteinAlignmentMethod.class.asSubclass(AlignmentMethod.class));
-		classes.add(ISubAlignmentMethod.class.asSubclass(AlignmentMethod.class));
-		classes.add(ExactAlignmentMethod.class.asSubclass(AlignmentMethod.class));
-
-		methods = buildInstancesFromClass(classes);
-	}
-
-	public Set<AlignmentMethod<ONTORES1, ONTORES2>> buildInstancesFromClass(Set<Class<? extends AlignmentMethod>> classes) {
-		Set<AlignmentMethod<ONTORES1, ONTORES2>> methods = new HashSet<AlignmentMethod<ONTORES1, ONTORES2>>();
-		for(Class<? extends AlignmentMethod> c : classes) {
-			try {
-				// Appel du constructeur par défaut
-				AlignmentMethod inst = c.newInstance();
-				methods.add(inst);
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}		
-		return methods;
-	}
-
-	public Set<AlignmentMethod<ONTORES1, ONTORES2>> getLoadedAlignmentMethods() {
-		return methods;
 	}
 
 	public void setContainer1(OntoContainer<ONTORES1> container1) {

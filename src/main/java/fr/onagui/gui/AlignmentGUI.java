@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -82,6 +83,7 @@ import fr.onagui.alignment.Mapping.MAPPING_TYPE;
 import fr.onagui.alignment.Mapping.VALIDITY;
 import fr.onagui.alignment.OntoContainer;
 import fr.onagui.alignment.io.AlignmentFormat;
+import fr.onagui.alignment.method.AlignmentMethodRegistry;
 import fr.onagui.alignment.method.LabelAlignmentMethod;
 import fr.onagui.config.OnaguiConfigImpl;
 import fr.onagui.config.OnaguiConfiguration;
@@ -840,13 +842,15 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 		JMenu alignMenu = new JMenu(Messages.getString("AlignmentMenu")); //$NON-NLS-1$
 		menuBar.add(alignMenu);
 		syntacticAlignItem = new Vector<JMenuItem>();
-		Set<AlignmentMethod> methods = alignmentControler.getLoadedAlignmentMethods();
-		for(AlignmentMethod method : methods) {
-			JMenuItem aMenu = new JMenuItem(method.toString());
+		
+		for (Iterator iterator = AlignmentMethodRegistry.getInstance().getAll().iterator(); iterator.hasNext();) {
+			AlignmentMethod aMethod = (AlignmentMethod) iterator.next();
+			JMenuItem aMenu = new JMenuItem(aMethod.getDisplayName());
 			alignMenu.add(aMenu);
-			aMenu.addActionListener(new AlignmentAlgorithmMenuListener(method));
+			aMenu.addActionListener(new AlignmentAlgorithmMenuListener(aMethod));
 			syntacticAlignItem.add(aMenu);
 		}
+
 		// La barre "statistiques"
 		JMenu statMenu = new JMenu(Messages.getString("StatisticMenu")); //$NON-NLS-1$
 		menuBar.add(statMenu);

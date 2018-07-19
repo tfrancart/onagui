@@ -61,8 +61,8 @@ public class ExactAlignmentMethod<ONTORES1, ONTORES2> extends LabelAlignmentMeth
 	}
 	
 	@Override
-	public String toString() {
-		return "Alignement exact";
+	public String getDisplayName() {
+		return "Exact alignment";
 	}
 
 }
