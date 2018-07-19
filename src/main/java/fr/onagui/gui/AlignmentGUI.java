@@ -845,7 +845,7 @@ public class AlignmentGUI extends JFrame implements TreeSelectionListener {
 		
 		for (Iterator iterator = AlignmentMethodRegistry.getInstance().getAll().iterator(); iterator.hasNext();) {
 			AlignmentMethod aMethod = (AlignmentMethod) iterator.next();
-			JMenuItem aMenu = new JMenuItem(aMethod.getDisplayName());
+			JMenuItem aMenu = new JMenuItem(aMethod.getName());
 			alignMenu.add(aMenu);
 			aMenu.addActionListener(new AlignmentAlgorithmMenuListener(aMethod));
 			syntacticAlignItem.add(aMenu);

@@ -28,7 +28,7 @@ public class AlignmentMethodRegistry extends ServiceRegistry<String, AlignmentMe
 
 	@Override
 	protected String getKey(AlignmentMethod service) {
-		return service.getDisplayName();
+		return service.getName();
 	}
 
 }

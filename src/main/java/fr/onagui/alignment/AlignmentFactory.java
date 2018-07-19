@@ -93,7 +93,7 @@ public class AlignmentFactory<ONTORES1, ONTORES2> {
 				Mapping<ONTORES1, ONTORES2> mapping = alignmentMethod.computeMapping(model1, cpt1Inst, model2, cpt2Inst);
 				// Force the "method" filed to do not allow alignment method to write it
 				if(mapping != null) {
-					mapping.setMethod(alignmentMethod.toString());
+					mapping.setMethod(alignmentMethod.getName());
 					alignment.addMap(mapping);
 				}
 			}

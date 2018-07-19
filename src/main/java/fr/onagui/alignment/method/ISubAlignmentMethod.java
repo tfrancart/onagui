@@ -90,15 +90,13 @@ public class ISubAlignmentMethod<ONTORES1, ONTORES2> extends LabelAlignmentMetho
 					Mapping<ONTORES1, ONTORES2> mapping = new Mapping<ONTORES1, ONTORES2>(cpt1Inst, cpt2Inst, isubScore, MAPPING_TYPE.EQUIV);
 					mapping.setMeta(meta);
 					return mapping;
-				}
-				else if(isubScore >= getThreshold() &&
+				} else if(isubScore >= getThreshold() &&
 						(currentBestMapping == null ||
 						 (currentBestMapping != null && currentBestMapping.getScore() < isubScore))) { // Meilleur que celui qu'on a déjà
 					
 					Mapping<ONTORES1, ONTORES2> mapping = new Mapping<ONTORES1, ONTORES2>(cpt1Inst, cpt2Inst, isubScore, MAPPING_TYPE.EQUIV);
 					mapping.setMeta(meta);
 					currentBestMapping = mapping;
-//					System.out.println(mapping);
 				}
 			}
 		}
@@ -106,7 +104,7 @@ public class ISubAlignmentMethod<ONTORES1, ONTORES2> extends LabelAlignmentMetho
 	}
 	
 	@Override
-	public String getDisplayName() {
+	public String getName() {
 		return "I-Sub distance"; 
 	}
 

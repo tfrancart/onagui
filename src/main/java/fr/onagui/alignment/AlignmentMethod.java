@@ -19,8 +19,8 @@ public interface AlignmentMethod<ONTORES1, ONTORES2> {
 	);
 	
 	/**
-	 * Returns the display name of the method, to be inserted in GUI menu
+	 * Returns the name of the method (usually displayed in menu and stored in mappings)
 	 * @return
 	 */
-	public String getDisplayName();
+	public String getName();
 }
