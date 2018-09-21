@@ -1,3 +1,5 @@
 fr.onagui.alignment.method.ExactAlignmentMethod
 fr.onagui.alignment.method.LevenshteinAlignmentMethod
 fr.onagui.alignment.method.ISubAlignmentMethod
+fr.onagui.alignment.method.JaroWinklerAlignmentMethod
+fr.onagui.alignment.method.MongeElkanAlignmentMethod

@@ -78,6 +78,12 @@
 			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-rio-rdfxml</artifactId>
 			<version>2.2</version>
+		</dependency>	
+		
+		<dependency>
+		    <groupId>com.wcohen</groupId>
+		    <artifactId>com.wcohen.secondstring</artifactId>
+		    <version>0.1</version>
 		</dependency>		
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14 -->
